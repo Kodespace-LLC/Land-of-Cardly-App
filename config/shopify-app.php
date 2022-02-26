@@ -320,6 +320,10 @@ return [
     */
 
     'webhooks' => [
+        [
+            'topic'=>'ORDERS_UPDATED',
+            'address'=> env('SHOPIFY_APP_URL')."/webhook/orders-updated"
+        ]
         /*
             [
                 'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'ORDERS_CREATE'),

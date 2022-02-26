@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\adapter\Cardly;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(Cardly::class,function(){
+            return new Cardly("test_7b7454b6212anCVi3jzRc7p6sZ1119QUdQQdfwby3A5");
+        });
     }
 
     /**
