@@ -6,7 +6,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Osiset\ShopifyApp\Objects\Values\ShopDomain;
-use App\Adapters\Cardly;
+use App\Adapter\Cardly;
 use App\Models\Order;
 use App\Models\User;
 use stdClass;
@@ -54,7 +54,7 @@ class OrdersUpdatedJob implements ShouldQueue
         $this->shopDomain=ShopDomain::fromNative($this->shopDomain);
         $shop=$this->shop;
         $order_data=$this->data;
-       $order=Order::where('shopify_id',$order_data->order_number);
+       $order=Order::where('shopify_id',$order_data->order_number)->first();
        if($order)
        {
            if($order->processed){
@@ -69,7 +69,8 @@ class OrdersUpdatedJob implements ShouldQueue
            }
            
        }
-    }
-    \Log::debug("Processing order",[$this->data]);
+       \Log::debug("Processing order",[$this->data]);
     \Log::debug("Line items in the order",$order_data->line_items);
+    }
+    
 }

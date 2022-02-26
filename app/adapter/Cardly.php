@@ -1,5 +1,5 @@
 <?php
-namespace App\adapter;
+namespace App\Adapter;
 use Illuminate\Support\Facades\Http;
 
 class Cardly{
