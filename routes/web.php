@@ -13,5 +13,5 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('test',[ViewHandlerController::class,"testing"])->name('testing');
 Route::get('/', [ViewHandlerController::class,"homeview"])->middleware(['verify.shopify'])->name('home');

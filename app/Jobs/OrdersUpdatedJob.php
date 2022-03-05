@@ -75,12 +75,12 @@ class OrdersUpdatedJob implements ShouldQueue
             \Log::debug("line items", [$line_item]);
             $product_id = $line_item->product_id;
             $res = $shop->api()->rest('GET', "/admin/products/$product_id/metafields.json");
-            $artwork_id = null;
-            foreach ($res["body"]["metafields"] as $m) {
-                if ($m["namespace"] == "kodespace" && $m["key"] == "artwork_id") {
-                    $artwork_id = $m["value"];
-                }
-            }
+            $artwork_id = "e12c32ee-7460-f3b5-d54f-395556d21a18";
+            // foreach ($res["body"]["metafields"] as $m) {
+            //     if ($m["namespace"] == "kodespace" && $m["key"] == "artwork_id") {
+            //         $artwork_id = $m["value"];
+            //     }
+            // }
             $message="";
             $rec = $order_data->shipping_address;
             $recipient = [
@@ -94,9 +94,11 @@ class OrdersUpdatedJob implements ShouldQueue
                 "postcode" => $rec->zip,
                 "country" => $rec->country_code
             ];
+            $template="test-template-for-aakash";
             \Log::debug([$recipient]);
             $quantity=1;
             $cardly->SendCard($artwork_id,$message,$recipient,$quantity);
+            // $cardly->PreviewCard($artwork_id,$message,$recipient,$template);
 
 
 
