@@ -28,7 +28,7 @@ public function SendCard($artwork_id,$message,$recipient,$quantity){
     \Log::debug([$response]);
 
 }
-public function PreviewCard (){
+public function PreviewCard ($data){
     $line_items=[
         "artwork"=>"e12c32ee-7460-f3b5-d54f-395556d21a18",
         "template"=>"test-template-for-aakash",
@@ -44,15 +44,17 @@ public function PreviewCard (){
             "country" => "CA"
         ],
         "style"=>[
-            "align"=>"center",
-            "color"=>"c20a69",
-            "size"=>28,
-            "verticalAlign"=>"bottom"
+            "align"=>$data["align"],
+            "color"=>$data["color"],
+            "size"=> $data["size"],
+            // "font"=>"227b649f-cb5c-3476-cdea-1e744ec5e70a-1",
+            "writing"=> $data["writing"],
+            "verticalAlign"=>$data["verticalAlign"]
 
 
         ],
         "variables"=>[
-            "message"=>"thisis a custom message for test on the right page",
+            "message"=>$data["message"],
             "leftPageText"=>"Cardly left page text test",
             "name"=>"land of cards"
         ]
