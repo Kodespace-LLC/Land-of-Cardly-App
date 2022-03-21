@@ -46,8 +46,8 @@ public function PreviewCard ($data){
         "style"=>[
             "align"=>$data["align"],
             "color"=>$data["color"],
-            "size"=> $data["size"],
-            // "font"=>"227b649f-cb5c-3476-cdea-1e744ec5e70a-1",
+            "size"=> (int) $data["size"],
+             "font"=>$data["font"],
             "writing"=> $data["writing"],
             "verticalAlign"=>$data["verticalAlign"]
 
@@ -60,6 +60,7 @@ public function PreviewCard ($data){
         ]
 
         ];
+        \Log::debug($data);
         $temp=Http::withHeaders([
             'API-Key'=>$this->api_key
         ])->post('https://api.card.ly/v2/orders/preview',$line_items);
@@ -67,4 +68,18 @@ public function PreviewCard ($data){
         return($response);
 
 }
+ public function fontformat(){
+     $font=Http::withHeaders([
+        'API-Key'=>$this->api_key
+     ])->get('https://api.card.ly/v2/fonts');
+     $response=$font->json();
+     return($response);
+ }
+ public function writingstyle(){
+     $writingstyle=Http::withHeaders([
+        'API-Key'=>$this->api_key
+     ])->get('https://api.card.ly/v2/writing-styles');
+     $response=($writingstyle)->json();
+     return($response);
+ }
 }
