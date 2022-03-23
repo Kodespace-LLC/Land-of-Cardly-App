@@ -7,17 +7,26 @@ class Cardly{
     public function __construct($apikey){
         $this->api_key=$apikey;
     }
-public function SendCard($artwork_id,$message,$recipient,$quantity){
+public function SendCard($artwork_id,$template,$recipient,$quantity,$cardcustomdata){
     $line_items=[
         "artwork"=>$artwork_id,
+        "template"=>$template,
         "quantity"=>$quantity,
         "recipient"=>$recipient,
         "variables" => [
             
-            "message" => $message
+            "message" => $cardcustomdata["message"]
+        ],
+        "style"=>[
+            "align"=>$cardcustomdata["align"],
+            "color"=>$cardcustomdata["color"],
+            "size"=> $cardcustomdata["size"],
+             "font"=>$cardcustomdata["font"],
+            "writing"=> $cardcustomdata["writing"],
+            "verticalAlign"=>$cardcustomdata["v-alignment"]
         ],
     ];
-    \Log::debug($this->api_key);
+    \Log::debug([$line_items]);
     $send=Http::withHeaders([
         'API-Key'=>$this->api_key
 

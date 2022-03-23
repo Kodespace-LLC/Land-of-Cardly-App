@@ -68,36 +68,116 @@ class OrdersUpdatedJob implements ShouldQueue
                 $order->save();
             }
         }
-        \Log::debug("Processing order", [$this->data]);
-        \Log::debug("Line items in the order", $order_data->line_items);
+        $quantity = null;
+        $bulkaddress = false;
+        $savefile = null;
+        // \Log::debug($bulkaddress);
+        // \Log::debug("Processing order", [$this->data]);
+        // \Log::debug("Line items in the order", $order_data->line_items);
         foreach ($order_data->line_items as $line_item) {
-            \Log::debug("line item name" . $line_item->name);
-            \Log::debug("line items", [$line_item]);
+            $cardcustomdata = [];
+            foreach ($line_item->properties as $property) {
+                if ($property->name == "message") {
+                    $cardcustomdata["message"] = $property->value;
+                }
+                if ($property->name == "align") {
+                    $cardcustomdata["align"] = $property->value;
+                }
+                if ($property->name == "font") {
+                    $cardcustomdata["font"] = $property->value;
+                }
+                if ($property->name == "writing") {
+                    $cardcustomdata["writing"] = $property->value;
+                }
+                if ($property->name == "size") {
+                    $cardcustomdata["size"] = (int)$property->value;
+                }
+                if ($property->name == "v-alignment") {
+                    $cardcustomdata["v-alignment"] = $property->value;
+                }
+                if ($property->name == "color") {
+                    $cardcustomdata["color"] = str_replace("#", "", $property->value);
+                }
+                if ($property->name == "filename") {
+                    $bulkaddress = true;
+                    $savefile = $property->value;
+                }
+            }
+            $path = "uploads";
+            function readcsv($path, $savefile)
+            {
+                $recipientdata = [];
+                if (($open = fopen(public_path() . "/" . $path . "/" . $savefile, "r")) !== FALSE) {
+                    while (($data = fgetcsv($open, 1000, ",")) !== FALSE) {
+                        $recipientdata[] = [
+                            "firstName" => $data[0],
+                            "lastName" => $data[1],
+                            "address" => $data[2],
+                            "address2" => $data[3],
+                            "city" => $data[4],
+                            "region" => $data[5],
+                            "postcode" => $data[6],
+                            "country" => $data[7],
+                        ];
+                    }
+                    fclose($open);
+                }
+
+                return ($recipientdata);
+            }
+            $csvdata = readcsv($path, $savefile);
+            // \Log::debug($csvdata);
+            $quantity = $line_item->quantity;
+            // \Log::debug($quantity);
+            // \Log::debug("cardcustomdata is", [$cardcustomdata]);
+            // \Log::debug("line item name" . $line_item->name);
+            // \Log::debug("line items", [$line_item]);
             $product_id = $line_item->product_id;
             $res = $shop->api()->rest('GET', "/admin/products/$product_id/metafields.json");
-            $artwork_id = "e12c32ee-7460-f3b5-d54f-395556d21a18";
-            // foreach ($res["body"]["metafields"] as $m) {
-            //     if ($m["namespace"] == "kodespace" && $m["key"] == "artwork_id") {
-            //         $artwork_id = $m["value"];
-            //     }
-            // }
-            $message="";
-            $rec = $order_data->shipping_address;
-            $recipient = [
+            $artwork_id = null;
+            $template = null;
+            foreach ($res["body"]["metafields"] as $m) {
+                if ($m["namespace"] == "kodespace" && $m["key"] == "artwork_id") {
+                    $artwork_id = $m["value"];
+                }
+                if ($m["namespace"] == "kodespace" && $m["key"] == "template_id") {
+                    $template = $m["value"];
+                }
+            }
+            if ($bulkaddress) {
+                foreach ($csvdata as $csvdata) {
+                    $recipient = [
+                        "firstName" => $csvdata['firstName'],
+                        "lastName" => $csvdata['lastName'],
+                        "address" => $csvdata['address'],
+                        "address2" => $csvdata['address2'],
+                        "city" => $csvdata['city'],
+                        "region" => $csvdata['region'],
+                        "postcode" => $csvdata['postcode'],
+                        "country" =>  $csvdata['country']
+                    ];
+                    $cardly->SendCard($artwork_id,$template,$recipient,$quantity,$cardcustomdata);
+                }
+            } elseif (!$bulkaddress) {
+                $rec = $order_data->shipping_address;
+                $recipient = [
 
-                "firstName" =>  $rec->first_name,
-                "lastName" => $rec->last_name,
-                "address" => $rec->address1,
-                "address2" => $rec->address2,
-                "city" => $rec->city,
-                "region" => $rec->province,
-                "postcode" => $rec->zip,
-                "country" => $rec->country_code
-            ];
-            $template="test-template-for-aakash";
-            \Log::debug([$recipient]);
-            $quantity=1;
-            $cardly->SendCard($artwork_id,$message,$recipient,$quantity);
+                    "firstName" =>  $rec->first_name,
+                    "lastName" => $rec->last_name,
+                    "address" => $rec->address1,
+                    "address2" => $rec->address2,
+                    "city" => $rec->city,
+                    "region" => $rec->province,
+                    "postcode" => $rec->zip,
+                    "country" => $rec->country_code
+                ];
+                $cardly->SendCard($artwork_id,$template,$recipient,$quantity,$cardcustomdata);
+            }
+           
+            //  \Log::debug([$template]);
+            //  \Log::debug([$artwork_id]);
+
+           
             // $cardly->PreviewCard($artwork_id,$message,$recipient,$template);
 
 
