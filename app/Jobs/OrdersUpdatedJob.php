@@ -80,6 +80,9 @@ class OrdersUpdatedJob implements ShouldQueue
                 if ($property->name == "message") {
                     $cardcustomdata["message"] = $property->value;
                 }
+                if ($property->name == "message-left") {
+                    $cardcustomdata["leftPageText"] = $property->value;
+                }
                 if ($property->name == "align") {
                     $cardcustomdata["align"] = $property->value;
                 }
@@ -104,7 +107,8 @@ class OrdersUpdatedJob implements ShouldQueue
                 }
             }
             $path = "uploads";
-            function readcsv($path, $savefile)
+            if($bulkaddress){
+                function readcsv($path, $savefile)
             {
                 $recipientdata = [];
                 if (($open = fopen(public_path() . "/" . $path . "/" . $savefile, "r")) !== FALSE) {
@@ -126,6 +130,7 @@ class OrdersUpdatedJob implements ShouldQueue
                 return ($recipientdata);
             }
             $csvdata = readcsv($path, $savefile);
+            }
             // \Log::debug($csvdata);
             $quantity = $line_item->quantity;
             // \Log::debug($quantity);

@@ -15,7 +15,8 @@ public function SendCard($artwork_id,$template,$recipient,$quantity,$cardcustomd
         "recipient"=>$recipient,
         "variables" => [
             
-            "message" => $cardcustomdata["message"]
+            "message" => $cardcustomdata["message"],
+            "leftPageText"=>$cardcustomdata["leftPageText"]
         ],
         "style"=>[
             "align"=>$cardcustomdata["align"],
