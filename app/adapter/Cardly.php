@@ -65,8 +65,8 @@ public function PreviewCard ($data){
         ],
         "variables"=>[
             "message"=>$data["message"],
-            "leftPageText"=>"Cardly left page text test",
-            "name"=>"land of cards"
+            "leftPageText"=>$data["leftmessage"],
+            
         ]
 
         ];

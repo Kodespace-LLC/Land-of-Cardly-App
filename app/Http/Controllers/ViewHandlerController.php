@@ -20,6 +20,7 @@ class ViewHandlerController extends Controller
     {
         $previewdata = [
             "message" => $request->input('message'),
+            "leftmessage" => $request->input('leftmessage'),
             "font" => $request->input('font'),
             "verticalAlign" => $request->input('valignment'),
             "color" => str_replace("#", "", $request->input('color')),

@@ -134,7 +134,7 @@ class OrdersUpdatedJob implements ShouldQueue
             // \Log::debug($csvdata);
             $quantity = $line_item->quantity;
             // \Log::debug($quantity);
-            // \Log::debug("cardcustomdata is", [$cardcustomdata]);
+            \Log::debug("cardcustomdata is", [$cardcustomdata]);
             // \Log::debug("line item name" . $line_item->name);
             // \Log::debug("line items", [$line_item]);
             $product_id = $line_item->product_id;
