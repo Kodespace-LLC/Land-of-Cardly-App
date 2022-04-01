@@ -71,6 +71,135 @@ class OrdersUpdatedJob implements ShouldQueue
         $quantity = null;
         $bulkaddress = false;
         $savefile = null;
+        $fontstyle = [
+            [
+                "id" => "27ad2d0d-3394-127f-9b99-c5c625a549b1",
+                "name" => "Annie",
+
+            ],
+            [
+                "id" => "9a30db69-97f3-bcdd-0015-c2c8c14aa2b9",
+                "name" => "Aurora",
+
+            ],
+            [
+                "id" => "9a30db69-97f3-bcdd-0015-c2c8c14aa2b9",
+                "name" => "Aurora",
+
+            ],
+            [
+                "id"=> "eb32b4ea-cc66-38e9-cd1f-60c481adb3c4",
+                "name"=> "Benny",
+            ],
+            [
+                "id"=> "90e7f5e9-7335-0e58-92e1-500fbabbc6c4",
+                "name"=> "Cammy",
+
+            ],
+            [
+                "id"=> "cba8c15d-3786-0b90-cdbc-a604190247c0",
+                "name"=> "Caudex",
+
+            ],
+            [
+                "id"=> "1db8e103-1ee3-21c5-1465-d6bfe5d50117",
+                "name"=> "Dawn",
+
+            ],
+            [
+                "id"=> "3c30f469-1c4b-dc5a-b326-bfcf1ed52cb0",
+                "name"=> "Duean",
+            ],
+            [
+                "id"=> "6e0b1e32-acfc-a661-bd6e-260e21a05b2b",
+                "name"=> "Farah",
+
+            ],
+            [
+                "id"=> "d95fd8ec-9682-3dcf-9ce4-2c28d75708e8",
+                "name"=> "Fell English",
+            ],
+            [
+                "id"=> "7174de61-5bd6-dcb6-8d95-a29ce5faeafa",
+                "name"=> "Grace",
+            ],
+            [
+                "id"=> "9caa0adc-fe12-ad82-5e47-9d68ab16ce64",
+                "name"=> "Hahmlet",
+
+            ],
+            [
+                "id"=> "0f1c630e-11a1-3069-c0d4-0ae23e1ad93e",
+                "name"=> "Hans",
+
+            ],
+            [
+                "id"=> "227b649f-cb5c-3476-cdea-1e744ec5e70a",
+                "name"=> "Jenna",
+
+            ],
+            [
+                "id"=> "cf092aae-6681-5852-1cb7-dc6ea6aaed1a",
+                "name"=> "Kosugi Maru",
+
+            ],
+            [
+                "id"=> "6212a600-bdaf-0856-cf14-68dd47fbf389",
+                "name"=> "Lewis",
+
+            ],
+            [
+                "id"=> "5f25b37f-ff41-c026-02c7-228bd9e5e63a",
+                "name"=> "Merriweather",
+            ],
+            [
+                "id"=> "bd0f7b6a-f175-482c-33a5-83b3d3fc4b1f",
+                "name"=> "Montserrat",
+
+            ],
+            [
+                "id"=> "e0197e08-f822-fa5a-aeb7-4d4afbf0cfcc",
+                "name"=> "Morgan",
+
+            ],
+            [
+                "id"=> "073d8bd5-0b54-b35d-daf0-cc4f3a274fb6",
+                "name"=> "Newsreader",
+
+            ],
+            [
+                 "id"=> "bc912ebc-52fc-18d1-1564-8774e9561219",
+            "name"=> "Open Sans",
+
+            ],
+            [
+                "id"=> "53a6accc-4696-d9cd-e501-d7c2f613284c",
+                "name"=> "Rajdhani",
+
+            ],
+            [
+                "id"=> "9c72453c-2692-083e-ace5-390b708edbac",
+                "name"=> "Roboto",
+
+            ],
+            [
+                "id"=> "917c8df6-a9dd-9500-a84a-36161db90b7a",
+                "name"=> "Roboto Mono",
+
+            ],
+            [
+                "id"=> "09f02071-d90d-1330-77ac-bbe8563ddb63",
+                "name"=> "Rosie",
+
+            ],
+            [
+                "id"=> "ccc21871-4a68-a1f2-b4f8-2b8b600037a1",
+                "name"=> "Sara",
+
+            ],
+
+
+        ];
         // \Log::debug($bulkaddress);
         // \Log::debug("Processing order", [$this->data]);
         // \Log::debug("Line items in the order", $order_data->line_items);
@@ -87,7 +216,16 @@ class OrdersUpdatedJob implements ShouldQueue
                     $cardcustomdata["align"] = $property->value;
                 }
                 if ($property->name == "font") {
-                    $cardcustomdata["font"] = $property->value;
+                    $fontsyler=$property->value;
+                    foreach($fontstyle as $id )
+                    {
+                        if($id["name"]==$fontsyler)
+                        {
+                            $cardcustomdata["font"] = $id["id"];
+
+                        }
+                    }
+                    
                 }
                 if ($property->name == "writing") {
                     $cardcustomdata["writing"] = $property->value;
@@ -107,29 +245,30 @@ class OrdersUpdatedJob implements ShouldQueue
                 }
             }
             $path = "uploads";
-            if($bulkaddress){
+            \Log::debug($cardcustomdata);
+            if ($bulkaddress) {
                 function readcsv($path, $savefile)
-            {
-                $recipientdata = [];
-                if (($open = fopen(public_path() . "/" . $path . "/" . $savefile, "r")) !== FALSE) {
-                    while (($data = fgetcsv($open, 1000, ",")) !== FALSE) {
-                        $recipientdata[] = [
-                            "firstName" => $data[0],
-                            "lastName" => $data[1],
-                            "address" => $data[2],
-                            "address2" => $data[3],
-                            "city" => $data[4],
-                            "region" => $data[5],
-                            "postcode" => $data[6],
-                            "country" => $data[7],
-                        ];
+                {
+                    $recipientdata = [];
+                    if (($open = fopen(public_path() . "/" . $path . "/" . $savefile, "r")) !== FALSE) {
+                        while (($data = fgetcsv($open, 1000, ",")) !== FALSE) {
+                            $recipientdata[] = [
+                                "firstName" => $data[0],
+                                "lastName" => $data[1],
+                                "address" => $data[2],
+                                "address2" => $data[3],
+                                "city" => $data[4],
+                                "region" => $data[5],
+                                "postcode" => $data[6],
+                                "country" => $data[7],
+                            ];
+                        }
+                        fclose($open);
                     }
-                    fclose($open);
-                }
 
-                return ($recipientdata);
-            }
-            $csvdata = readcsv($path, $savefile);
+                    return ($recipientdata);
+                }
+                $csvdata = readcsv($path, $savefile);
             }
             // \Log::debug($csvdata);
             $quantity = $line_item->quantity;
@@ -161,7 +300,8 @@ class OrdersUpdatedJob implements ShouldQueue
                         "postcode" => $csvdata['postcode'],
                         "country" =>  $csvdata['country']
                     ];
-                    $cardly->SendCard($artwork_id,$template,$recipient,$quantity,$cardcustomdata);
+                    \Log::debug([$recipient]);
+                    $cardly->SendCard($artwork_id, $template, $recipient, $quantity, $cardcustomdata);
                 }
             } elseif (!$bulkaddress) {
                 $rec = $order_data->shipping_address;
@@ -176,13 +316,13 @@ class OrdersUpdatedJob implements ShouldQueue
                     "postcode" => $rec->zip,
                     "country" => $rec->country_code
                 ];
-                $cardly->SendCard($artwork_id,$template,$recipient,$quantity,$cardcustomdata);
+                $cardly->SendCard($artwork_id, $template, $recipient, $quantity, $cardcustomdata);
             }
-           
+
             //  \Log::debug([$template]);
             //  \Log::debug([$artwork_id]);
 
-           
+
             // $cardly->PreviewCard($artwork_id,$message,$recipient,$template);
 
 

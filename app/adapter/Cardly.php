@@ -27,7 +27,7 @@ public function SendCard($artwork_id,$template,$recipient,$quantity,$cardcustomd
             "verticalAlign"=>$cardcustomdata["v-alignment"]
         ],
     ];
-    \Log::debug([$line_items]);
+    // \Log::debug([$line_items]);
     $send=Http::withHeaders([
         'API-Key'=>$this->api_key
 
@@ -35,7 +35,7 @@ public function SendCard($artwork_id,$template,$recipient,$quantity,$cardcustomd
         "lines"=>[$line_items]
     ]);
     $response=$send->json();
-    \Log::debug([$response]);
+     \Log::debug([$response]);
 
 }
 public function PreviewCard ($data){
@@ -70,7 +70,7 @@ public function PreviewCard ($data){
         ]
 
         ];
-        \Log::debug($data);
+        // \Log::debug($data);
         $temp=Http::withHeaders([
             'API-Key'=>$this->api_key
         ])->post('https://api.card.ly/v2/orders/preview',$line_items);
