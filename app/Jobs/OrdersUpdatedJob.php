@@ -71,6 +71,28 @@ class OrdersUpdatedJob implements ShouldQueue
         $quantity = null;
         $bulkaddress = false;
         $savefile = null;
+        $writingstyle=[
+                        [
+                            "id"=>"13a31bc8-e872-73c9-150d-5eda2654cbc6",
+                            "name"=>"Perfection"
+                        ],
+                        [
+                            "id"=>"f9d06541-8a42-3a87-e101-037b2e1632ba",
+                            "name"=>"Neat"
+                        ],
+                        [
+                            "id"=>"987d50c7-25e1-3b1c-aa78-6f60b1411fe5",
+                            "name"=>"Average"
+                        ],
+                        [
+                            "id"=>"e1792ebb-3063-9ce3-9c66-fc9b6e4e413c",
+                            "name"=>"Messy"
+                        ],
+                        [
+                            "id"=>"598b756f-0801-6a29-e8f3-4caf1b0242a5",
+                            "name"=>"Dark"
+                        ],
+        ];
         $fontstyle = [
             [
                 "id" => "27ad2d0d-3394-127f-9b99-c5c625a549b1",
@@ -228,7 +250,13 @@ class OrdersUpdatedJob implements ShouldQueue
                     
                 }
                 if ($property->name == "writing") {
-                    $cardcustomdata["writing"] = $property->value;
+                    $writingname= $property->value;
+                    foreach($writingstyle as $id){
+                        if($id["name"]==$writingname){
+                            $cardcustomdata["writing"] =$id["id"];
+                        }
+
+                    }
                 }
                 if ($property->name == "size") {
                     $cardcustomdata["size"] = (int)$property->value;
