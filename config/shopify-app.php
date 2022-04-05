@@ -176,7 +176,7 @@ return [
     |
     */
 
-    'api_scopes' => env('SHOPIFY_API_SCOPES', 'read_products,write_products'),
+    'api_scopes' => env('SHOPIFY_API_SCOPES', 'read_products,write_products,write_orders,read_orders'),
 
     /*
     |--------------------------------------------------------------------------
@@ -320,6 +320,10 @@ return [
     */
 
     'webhooks' => [
+        [
+            'topic'=>'ORDERS_UPDATED',
+            'address'=> env('SHOPIFY_APP_URL')."/webhook/orders-updated"
+        ]
         /*
             [
                 'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'ORDERS_CREATE'),
