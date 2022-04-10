@@ -35,7 +35,7 @@ public function SendCard($artwork_id,$template,$recipient,$quantity,$cardcustomd
         "lines"=>[$line_items]
     ]);
     $response=$send->json();
-     \Log::debug([$response]);
+    //  \Log::debug([$response]);
 
 }
 public function PreviewCard ($data){

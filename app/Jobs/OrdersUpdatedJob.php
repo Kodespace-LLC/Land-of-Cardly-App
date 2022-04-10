@@ -11,7 +11,10 @@ use Osiset\ShopifyApp\Objects\Values\ShopDomain;
 use App\Adapter\Cardly;
 use App\Models\Order;
 use App\Models\User;
+use DateTime;
 use stdClass;
+use Carbon\Carbon;
+use App\Jobs\SendCardJob;
 
 class OrdersUpdatedJob implements ShouldQueue
 {
@@ -222,6 +225,7 @@ class OrdersUpdatedJob implements ShouldQueue
 
 
         ];
+        $scheduledate=null;
         // \Log::debug($bulkaddress);
         // \Log::debug("Processing order", [$this->data]);
         // \Log::debug("Line items in the order", $order_data->line_items);
@@ -271,9 +275,13 @@ class OrdersUpdatedJob implements ShouldQueue
                     $bulkaddress = true;
                     $savefile = $property->value;
                 }
+                if($property->name=="schedule for"){
+                    $scheduledate=$property->value;
+                }
             }
             $path = "uploads";
-            \Log::debug($cardcustomdata);
+             \Log::debug("schedule date",[$scheduledate]);
+            // \Log::debug($cardcustomdata);
             if ($bulkaddress) {
                 function readcsv($path, $savefile)
                 {
@@ -301,7 +309,7 @@ class OrdersUpdatedJob implements ShouldQueue
             // \Log::debug($csvdata);
             $quantity = $line_item->quantity;
             // \Log::debug($quantity);
-            \Log::debug("cardcustomdata is", [$cardcustomdata]);
+            // \Log::debug("cardcustomdata is", [$cardcustomdata]);
             // \Log::debug("line item name" . $line_item->name);
             // \Log::debug("line items", [$line_item]);
             $product_id = $line_item->product_id;
@@ -316,6 +324,7 @@ class OrdersUpdatedJob implements ShouldQueue
                     $template = $m["value"];
                 }
             }
+           if(empty($scheduledate) || $scheduledate==null){
             if ($bulkaddress) {
                 foreach ($csvdata as $csvdata) {
                     $recipient = [
@@ -328,7 +337,7 @@ class OrdersUpdatedJob implements ShouldQueue
                         "postcode" => $csvdata['postcode'],
                         "country" =>  $csvdata['country']
                     ];
-                    \Log::debug([$recipient]);
+                    // \Log::debug([$recipient]);
                     $cardly->SendCard($artwork_id, $template, $recipient, $quantity, $cardcustomdata);
                 }
             } elseif (!$bulkaddress) {
@@ -346,6 +355,19 @@ class OrdersUpdatedJob implements ShouldQueue
                 ];
                 $cardly->SendCard($artwork_id, $template, $recipient, $quantity, $cardcustomdata);
             }
+           }
+           else{
+               $currenttime=new DateTime();
+               $delaytime=new DateTime($scheduledate);
+                // $delaytime->setTime(22,36,00);
+               $diff=date_diff($currenttime,$delaytime);
+               \Log::debug([$delaytime]);
+               \Log::debug([$currenttime]);
+               \Log::debug("difference is",[$diff]);
+               $job_id = (new SendCardJob())->delay($diff);
+               dispatch($job_id);
+
+           }
 
             //  \Log::debug([$template]);
             //  \Log::debug([$artwork_id]);

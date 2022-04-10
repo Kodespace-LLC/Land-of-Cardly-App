@@ -20,3 +20,4 @@ Route::get('/fonttester',[ViewHandlerController::class,"getfont"]);
 Route::get('/getwriting',[ViewHandlerController::class,"getwriting"]);
 Route::get("csvfile", [ViewHandlerController::class, "readcsv"]);
 Route::post('uploadcsv',[ViewHandlerController::class,"csvfile"])->middleware(['allowcors'])->name('uploadcsv');
+Route::get('/testjob',[ViewHandlerController::class,"testjob"]);

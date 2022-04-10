@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
+use App\Jobs\SendCardJob;
 use App\Adapter\Cardly;
 use Illuminate\Http\Request;
 
@@ -85,5 +86,10 @@ class ViewHandlerController extends Controller
         }
        
         return($recipientdata);
+    }
+    public function testjob(Request $request){
+        $job = (new SendCardJob())->delay(Carbon::now()->addMinutes(2));
+ 
+        dispatch($job);
     }
 }
