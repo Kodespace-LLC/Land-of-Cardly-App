@@ -8,19 +8,25 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use App\Adapter\Cardly;
 
 class SendCardJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
+   public $artwork_id, $template, $recipient, $quantity, $cardcustomdata;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+  
+    public function __construct($artwork_id, $template, $recipient, $quantity, $cardcustomdata)
     {
-        //
+        $this->artwork_id=$artwork_id;
+        $this->template=$template;
+        $this->recipient= $recipient;
+        $this->quantity=$quantity;
+        $this->cardcustomdata=$cardcustomdata;
     }
 
     /**
@@ -28,9 +34,11 @@ class SendCardJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(Cardly $cardly)
     {
-        \Log::debug("Job cardly halde :D");
+        
+        \Log::debug($this->artwork_id);
+        $cardly->SendCard($this->artwork_id, $this->template, $this->recipient, $this->quantity, $this->cardcustomdata);
         //
     }
 }

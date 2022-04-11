@@ -324,24 +324,7 @@ class OrdersUpdatedJob implements ShouldQueue
                     $template = $m["value"];
                 }
             }
-           if(empty($scheduledate) || $scheduledate==null){
-            if ($bulkaddress) {
-                foreach ($csvdata as $csvdata) {
-                    $recipient = [
-                        "firstName" => $csvdata['firstName'],
-                        "lastName" => $csvdata['lastName'],
-                        "address" => $csvdata['address'],
-                        "address2" => $csvdata['address2'],
-                        "city" => $csvdata['city'],
-                        "region" => $csvdata['region'],
-                        "postcode" => $csvdata['postcode'],
-                        "country" =>  $csvdata['country']
-                    ];
-                    // \Log::debug([$recipient]);
-                    $cardly->SendCard($artwork_id, $template, $recipient, $quantity, $cardcustomdata);
-                }
-            } elseif (!$bulkaddress) {
-                $rec = $order_data->shipping_address;
+            $rec = $order_data->shipping_address;
                 $recipient = [
 
                     "firstName" =>  $rec->first_name,
@@ -353,6 +336,25 @@ class OrdersUpdatedJob implements ShouldQueue
                     "postcode" => $rec->zip,
                     "country" => $rec->country_code
                 ];
+           if(empty($scheduledate) || $scheduledate==null){
+            if ($bulkaddress) {
+                foreach ($csvdata as $csvdata) {
+                    $recp = [
+                        "firstName" => $csvdata['firstName'],
+                        "lastName" => $csvdata['lastName'],
+                        "address" => $csvdata['address'],
+                        "address2" => $csvdata['address2'],
+                        "city" => $csvdata['city'],
+                        "region" => $csvdata['region'],
+                        "postcode" => $csvdata['postcode'],
+                        "country" =>  $csvdata['country']
+                    ];
+                    // \Log::debug([$recp]);
+                    $cardly->SendCard($artwork_id, $template, $recp, $quantity, $cardcustomdata);
+                }
+
+            } elseif (!$bulkaddress) {
+                
                 $cardly->SendCard($artwork_id, $template, $recipient, $quantity, $cardcustomdata);
             }
            }
@@ -364,8 +366,9 @@ class OrdersUpdatedJob implements ShouldQueue
                \Log::debug([$delaytime]);
                \Log::debug([$currenttime]);
                \Log::debug("difference is",[$diff]);
-               $job_id = (new SendCardJob())->delay($diff);
-               dispatch($job_id);
+               $job_id = (new SendCardJob($artwork_id, $template, $recipient, $quantity, $cardcustomdata))->delay($diff);
+              dispatch($job_id);
+           
 
            }
 

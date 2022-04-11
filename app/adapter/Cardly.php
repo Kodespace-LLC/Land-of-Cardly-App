@@ -27,7 +27,7 @@ public function SendCard($artwork_id,$template,$recipient,$quantity,$cardcustomd
             "verticalAlign"=>$cardcustomdata["v-alignment"]
         ],
     ];
-    // \Log::debug([$line_items]);
+     \Log::debug([$line_items]);
     $send=Http::withHeaders([
         'API-Key'=>$this->api_key
 
