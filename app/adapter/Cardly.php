@@ -16,7 +16,8 @@ public function SendCard($artwork_id,$template,$recipient,$quantity,$cardcustomd
         "variables" => [
             
             "message" => $cardcustomdata["message"],
-            "leftPageText"=>$cardcustomdata["leftPageText"]
+            "leftPageText"=>$cardcustomdata["leftPageText"],
+            "recipient_name"=>$cardcustomdata["Recipient_Name"]
         ],
         "style"=>[
             "align"=>$cardcustomdata["align"],
@@ -66,6 +67,7 @@ public function PreviewCard ($data){
         "variables"=>[
             "message"=>$data["message"],
             "leftPageText"=>$data["leftmessage"],
+            "recipient_name"=>$data["recipient_name"] ? $data["recipient_name"]:"Recipient Name"
             
         ]
 

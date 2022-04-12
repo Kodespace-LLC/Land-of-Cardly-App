@@ -74,27 +74,27 @@ class OrdersUpdatedJob implements ShouldQueue
         $quantity = null;
         $bulkaddress = false;
         $savefile = null;
-        $writingstyle=[
-                        [
-                            "id"=>"13a31bc8-e872-73c9-150d-5eda2654cbc6",
-                            "name"=>"Perfection"
-                        ],
-                        [
-                            "id"=>"f9d06541-8a42-3a87-e101-037b2e1632ba",
-                            "name"=>"Neat"
-                        ],
-                        [
-                            "id"=>"987d50c7-25e1-3b1c-aa78-6f60b1411fe5",
-                            "name"=>"Average"
-                        ],
-                        [
-                            "id"=>"e1792ebb-3063-9ce3-9c66-fc9b6e4e413c",
-                            "name"=>"Messy"
-                        ],
-                        [
-                            "id"=>"598b756f-0801-6a29-e8f3-4caf1b0242a5",
-                            "name"=>"Dark"
-                        ],
+        $writingstyle = [
+            [
+                "id" => "13a31bc8-e872-73c9-150d-5eda2654cbc6",
+                "name" => "Perfection"
+            ],
+            [
+                "id" => "f9d06541-8a42-3a87-e101-037b2e1632ba",
+                "name" => "Neat"
+            ],
+            [
+                "id" => "987d50c7-25e1-3b1c-aa78-6f60b1411fe5",
+                "name" => "Average"
+            ],
+            [
+                "id" => "e1792ebb-3063-9ce3-9c66-fc9b6e4e413c",
+                "name" => "Messy"
+            ],
+            [
+                "id" => "598b756f-0801-6a29-e8f3-4caf1b0242a5",
+                "name" => "Dark"
+            ],
         ];
         $fontstyle = [
             [
@@ -113,119 +113,119 @@ class OrdersUpdatedJob implements ShouldQueue
 
             ],
             [
-                "id"=> "eb32b4ea-cc66-38e9-cd1f-60c481adb3c4",
-                "name"=> "Benny",
+                "id" => "eb32b4ea-cc66-38e9-cd1f-60c481adb3c4",
+                "name" => "Benny",
             ],
             [
-                "id"=> "90e7f5e9-7335-0e58-92e1-500fbabbc6c4",
-                "name"=> "Cammy",
+                "id" => "90e7f5e9-7335-0e58-92e1-500fbabbc6c4",
+                "name" => "Cammy",
 
             ],
             [
-                "id"=> "cba8c15d-3786-0b90-cdbc-a604190247c0",
-                "name"=> "Caudex",
+                "id" => "cba8c15d-3786-0b90-cdbc-a604190247c0",
+                "name" => "Caudex",
 
             ],
             [
-                "id"=> "1db8e103-1ee3-21c5-1465-d6bfe5d50117",
-                "name"=> "Dawn",
+                "id" => "1db8e103-1ee3-21c5-1465-d6bfe5d50117",
+                "name" => "Dawn",
 
             ],
             [
-                "id"=> "3c30f469-1c4b-dc5a-b326-bfcf1ed52cb0",
-                "name"=> "Duean",
+                "id" => "3c30f469-1c4b-dc5a-b326-bfcf1ed52cb0",
+                "name" => "Duean",
             ],
             [
-                "id"=> "6e0b1e32-acfc-a661-bd6e-260e21a05b2b",
-                "name"=> "Farah",
+                "id" => "6e0b1e32-acfc-a661-bd6e-260e21a05b2b",
+                "name" => "Farah",
 
             ],
             [
-                "id"=> "d95fd8ec-9682-3dcf-9ce4-2c28d75708e8",
-                "name"=> "Fell English",
+                "id" => "d95fd8ec-9682-3dcf-9ce4-2c28d75708e8",
+                "name" => "Fell English",
             ],
             [
-                "id"=> "7174de61-5bd6-dcb6-8d95-a29ce5faeafa",
-                "name"=> "Grace",
+                "id" => "7174de61-5bd6-dcb6-8d95-a29ce5faeafa",
+                "name" => "Grace",
             ],
             [
-                "id"=> "9caa0adc-fe12-ad82-5e47-9d68ab16ce64",
-                "name"=> "Hahmlet",
+                "id" => "9caa0adc-fe12-ad82-5e47-9d68ab16ce64",
+                "name" => "Hahmlet",
 
             ],
             [
-                "id"=> "0f1c630e-11a1-3069-c0d4-0ae23e1ad93e",
-                "name"=> "Hans",
+                "id" => "0f1c630e-11a1-3069-c0d4-0ae23e1ad93e",
+                "name" => "Hans",
 
             ],
             [
-                "id"=> "227b649f-cb5c-3476-cdea-1e744ec5e70a",
-                "name"=> "Jenna",
+                "id" => "227b649f-cb5c-3476-cdea-1e744ec5e70a",
+                "name" => "Jenna",
 
             ],
             [
-                "id"=> "cf092aae-6681-5852-1cb7-dc6ea6aaed1a",
-                "name"=> "Kosugi Maru",
+                "id" => "cf092aae-6681-5852-1cb7-dc6ea6aaed1a",
+                "name" => "Kosugi Maru",
 
             ],
             [
-                "id"=> "6212a600-bdaf-0856-cf14-68dd47fbf389",
-                "name"=> "Lewis",
+                "id" => "6212a600-bdaf-0856-cf14-68dd47fbf389",
+                "name" => "Lewis",
 
             ],
             [
-                "id"=> "5f25b37f-ff41-c026-02c7-228bd9e5e63a",
-                "name"=> "Merriweather",
+                "id" => "5f25b37f-ff41-c026-02c7-228bd9e5e63a",
+                "name" => "Merriweather",
             ],
             [
-                "id"=> "bd0f7b6a-f175-482c-33a5-83b3d3fc4b1f",
-                "name"=> "Montserrat",
+                "id" => "bd0f7b6a-f175-482c-33a5-83b3d3fc4b1f",
+                "name" => "Montserrat",
 
             ],
             [
-                "id"=> "e0197e08-f822-fa5a-aeb7-4d4afbf0cfcc",
-                "name"=> "Morgan",
+                "id" => "e0197e08-f822-fa5a-aeb7-4d4afbf0cfcc",
+                "name" => "Morgan",
 
             ],
             [
-                "id"=> "073d8bd5-0b54-b35d-daf0-cc4f3a274fb6",
-                "name"=> "Newsreader",
+                "id" => "073d8bd5-0b54-b35d-daf0-cc4f3a274fb6",
+                "name" => "Newsreader",
 
             ],
             [
-                 "id"=> "bc912ebc-52fc-18d1-1564-8774e9561219",
-            "name"=> "Open Sans",
+                "id" => "bc912ebc-52fc-18d1-1564-8774e9561219",
+                "name" => "Open Sans",
 
             ],
             [
-                "id"=> "53a6accc-4696-d9cd-e501-d7c2f613284c",
-                "name"=> "Rajdhani",
+                "id" => "53a6accc-4696-d9cd-e501-d7c2f613284c",
+                "name" => "Rajdhani",
 
             ],
             [
-                "id"=> "9c72453c-2692-083e-ace5-390b708edbac",
-                "name"=> "Roboto",
+                "id" => "9c72453c-2692-083e-ace5-390b708edbac",
+                "name" => "Roboto",
 
             ],
             [
-                "id"=> "917c8df6-a9dd-9500-a84a-36161db90b7a",
-                "name"=> "Roboto Mono",
+                "id" => "917c8df6-a9dd-9500-a84a-36161db90b7a",
+                "name" => "Roboto Mono",
 
             ],
             [
-                "id"=> "09f02071-d90d-1330-77ac-bbe8563ddb63",
-                "name"=> "Rosie",
+                "id" => "09f02071-d90d-1330-77ac-bbe8563ddb63",
+                "name" => "Rosie",
 
             ],
             [
-                "id"=> "ccc21871-4a68-a1f2-b4f8-2b8b600037a1",
-                "name"=> "Sara",
+                "id" => "ccc21871-4a68-a1f2-b4f8-2b8b600037a1",
+                "name" => "Sara",
 
             ],
 
 
         ];
-        $scheduledate=null;
+        $scheduledate = null;
         // \Log::debug($bulkaddress);
         // \Log::debug("Processing order", [$this->data]);
         // \Log::debug("Line items in the order", $order_data->line_items);
@@ -242,24 +242,19 @@ class OrdersUpdatedJob implements ShouldQueue
                     $cardcustomdata["align"] = $property->value;
                 }
                 if ($property->name == "font") {
-                    $fontsyler=$property->value;
-                    foreach($fontstyle as $id )
-                    {
-                        if($id["name"]==$fontsyler)
-                        {
+                    $fontsyler = $property->value;
+                    foreach ($fontstyle as $id) {
+                        if ($id["name"] == $fontsyler) {
                             $cardcustomdata["font"] = $id["id"];
-
                         }
                     }
-                    
                 }
                 if ($property->name == "writing") {
-                    $writingname= $property->value;
-                    foreach($writingstyle as $id){
-                        if($id["name"]==$writingname){
-                            $cardcustomdata["writing"] =$id["id"];
+                    $writingname = $property->value;
+                    foreach ($writingstyle as $id) {
+                        if ($id["name"] == $writingname) {
+                            $cardcustomdata["writing"] = $id["id"];
                         }
-
                     }
                 }
                 if ($property->name == "size") {
@@ -275,12 +270,15 @@ class OrdersUpdatedJob implements ShouldQueue
                     $bulkaddress = true;
                     $savefile = $property->value;
                 }
-                if($property->name=="schedule for"){
-                    $scheduledate=$property->value;
+                if($property->name=="Recipient_Name"){
+                    $cardcustomdata["Recipient_Name"]=$property->value;
+                }
+                if ($property->name == "schedule for") {
+                    $scheduledate = $property->value;
                 }
             }
             $path = "uploads";
-             \Log::debug("schedule date",[$scheduledate]);
+            \Log::debug("schedule date", [$scheduledate]);
             // \Log::debug($cardcustomdata);
             if ($bulkaddress) {
                 function readcsv($path, $savefile)
@@ -325,61 +323,79 @@ class OrdersUpdatedJob implements ShouldQueue
                 }
             }
             $rec = $order_data->shipping_address;
-                $recipient = [
+            $recipient = [
 
-                    "firstName" =>  $rec->first_name,
-                    "lastName" => $rec->last_name,
-                    "address" => $rec->address1,
-                    "address2" => $rec->address2,
-                    "city" => $rec->city,
-                    "region" => $rec->province,
-                    "postcode" => $rec->zip,
-                    "country" => $rec->country_code
-                ];
-           if(empty($scheduledate) || $scheduledate==null){
-            if ($bulkaddress) {
-                foreach ($csvdata as $csvdata) {
-                    $recp = [
-                        "firstName" => $csvdata['firstName'],
-                        "lastName" => $csvdata['lastName'],
-                        "address" => $csvdata['address'],
-                        "address2" => $csvdata['address2'],
-                        "city" => $csvdata['city'],
-                        "region" => $csvdata['region'],
-                        "postcode" => $csvdata['postcode'],
-                        "country" =>  $csvdata['country']
-                    ];
-                    // \Log::debug([$recp]);
-                    $cardly->SendCard($artwork_id, $template, $recp, $quantity, $cardcustomdata);
+                "firstName" =>  $rec->first_name,
+                "lastName" => $rec->last_name,
+                "address" => $rec->address1,
+                "address2" => $rec->address2,
+                "city" => $rec->city,
+                "region" => $rec->province,
+                "postcode" => $rec->zip,
+                "country" => $rec->country_code
+            ];
+            if (empty($scheduledate) || $scheduledate == null) {
+                if ($bulkaddress) {
+                    foreach ($csvdata as $csvdata) {
+                        $recp = [
+                            "firstName" => $csvdata['firstName'],
+                            "lastName" => $csvdata['lastName'],
+                            "address" => $csvdata['address'],
+                            "address2" => $csvdata['address2'],
+                            "city" => $csvdata['city'],
+                            "region" => $csvdata['region'],
+                            "postcode" => $csvdata['postcode'],
+                            "country" =>  $csvdata['country']
+                        ];
+                        // \Log::debug([$recp]);
+                        $cardcustomdata["Recipient_Name"]=$csvdata['firstName'];
+                        $cardly->SendCard($artwork_id, $template, $recp, $quantity, $cardcustomdata);
+                    }
+                } elseif (!$bulkaddress) {
+
+                    $cardly->SendCard($artwork_id, $template, $recipient, $quantity, $cardcustomdata);
                 }
+            } else {
 
-            } elseif (!$bulkaddress) {
-                
-                $cardly->SendCard($artwork_id, $template, $recipient, $quantity, $cardcustomdata);
-            }
-           }
-           else{
-               $currenttime=new DateTime();
-               $delaytime=new DateTime($scheduledate);
+                $currenttime = new DateTime();
+                $delaytime = new DateTime($scheduledate);
                 // $delaytime->setTime(22,36,00);
-               $diff=date_diff($currenttime,$delaytime);
-               \Log::debug([$delaytime]);
-               \Log::debug([$currenttime]);
-               \Log::debug("difference is",[$diff]);
-               $job_id = (new SendCardJob($artwork_id, $template, $recipient, $quantity, $cardcustomdata))->delay($diff);
-              dispatch($job_id);
-           
+                $diff = date_diff($currenttime, $delaytime);
+                \Log::debug([$delaytime]);
+                \Log::debug([$currenttime]);
+                \Log::debug("difference is", [$diff]);
+               $bulk=false;
+                if ($bulkaddress) {
+                    $bulk=[];
+                    foreach ($csvdata as $csvdata) {
+                        $bulk[] = [
+                            "firstName" => $csvdata['firstName'],
+                            "lastName" => $csvdata['lastName'],
+                            "address" => $csvdata['address'],
+                            "address2" => $csvdata['address2'],
+                            "city" => $csvdata['city'],
+                            "region" => $csvdata['region'],
+                            "postcode" => $csvdata['postcode'],
+                            "country" =>  $csvdata['country']
+                        ];
+                        
+                        // \Log::debug([$recp]);
+                        
+                    }
+                } 
+                $job_id = (new SendCardJob($artwork_id, $template, $recipient, $quantity, $cardcustomdata,$bulk))->delay($diff);
+                dispatch($job_id);
 
-           }
-
-            //  \Log::debug([$template]);
-            //  \Log::debug([$artwork_id]);
-
-
-            // $cardly->PreviewCard($artwork_id,$message,$recipient,$template);
-
-
-
+            }
         }
+
+        //  \Log::debug([$template]);
+        //  \Log::debug([$artwork_id]);
+
+
+        // $cardly->PreviewCard($artwork_id,$message,$recipient,$template);
+
+
+
     }
 }
