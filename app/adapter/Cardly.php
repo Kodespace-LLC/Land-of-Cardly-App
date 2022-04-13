@@ -10,7 +10,7 @@ class Cardly
     public function __construct($apikey)
     {
         $this->api_key = $apikey;
-    }
+    } 
     public function SendCard($artwork_id, $template, $recipient, $quantity, $cardcustomdata)
     {
         $line_items = [
