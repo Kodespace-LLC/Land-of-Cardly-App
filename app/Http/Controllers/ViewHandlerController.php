@@ -78,7 +78,7 @@ class ViewHandlerController extends Controller
     {
         $recipientdata = [];
         $error = false;
-        if (($open = fopen("/home/aakashahmed/cards.landofisraelart.com/public/" . $savefile, "r")) !== FALSE) {
+        if (($open = fopen("/home/aakashahmed/cards.landofisraelart.com/uploads/" . $savefile, "r")) !== FALSE) {
             $first_row = fgetcsv($open, 1000, ",");
             if ($first_row[0] !== "First_Name") {
                 $error = true;
