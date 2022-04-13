@@ -30,9 +30,13 @@ class ViewHandlerController extends Controller
             "size" => $request->input('size'),
             "align" => $request->input('align'),
             "writing" => $request->input('writing'),
-            "recipient_name" => $request->input("recipientname")
+            
 
         ];
+
+        if( $request->has('recipient_name')) {
+            $previewdata["recipient_name"] = $request->input("recipientname");
+        }
         $data = $cardly->PreviewCard($previewdata);
         return response()->json($data);
     }
