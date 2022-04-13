@@ -154,7 +154,7 @@ return [
     |
     */
 
-    'api_key' => env('SHOPIFY_API_KEY', 'e61506fbff571e1bdef46d180e112353'),
+    'api_key' => env('SHOPIFY_API_KEY', '3a23934225f88792b152fe9e2e3224d5'),
 
     /*
     |--------------------------------------------------------------------------
@@ -165,7 +165,7 @@ return [
     |
     */
 
-    'api_secret' => env('SHOPIFY_API_SECRET', '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'),
+    'api_secret' => env('SHOPIFY_API_SECRET', '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'),
 
     /*
     |--------------------------------------------------------------------------
@@ -176,7 +176,7 @@ return [
     |
     */
 
-    'api_scopes' => env('SHOPIFY_API_SCOPES', 'read_products,write_products,write_orders,read_orders'),
+    'api_scopes' => env('SHOPIFY_API_SCOPES', 'read_products,write_products'),
 
     /*
     |--------------------------------------------------------------------------
@@ -319,16 +319,13 @@ return [
     |
     */
 
+    
     'webhooks' => [
         [
             'topic'=>'ORDERS_UPDATED',
             'address'=> env('SHOPIFY_APP_URL')."/webhook/orders-updated"
         ]
         /*
-            [
-                'topic' => env('SHOPIFY_WEBHOOK_1_TOPIC', 'ORDERS_CREATE'),
-                'address' => env('SHOPIFY_WEBHOOK_1_ADDRESS', 'https://some-app.com/webhook/orders-create')
-            ], [
                 'topic' => env('SHOPIFY_WEBHOOK_2_TOPIC', 'APP_PURCHASES_ONE_TIME_UPDATE'),
                 'address' => env('SHOPIFY_WEBHOOK_2_ADDRESS', 'https://some-app.com/webhook/purchase'),
             ]

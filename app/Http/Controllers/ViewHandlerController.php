@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Carbon\Carbon;
+use App\Jobs\SendCardJob;
 use App\Adapter\Cardly;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,8 @@ class ViewHandlerController extends Controller
             "writing" => $request->input('writing'),
             "size" => $request->input('size'),
             "align" => $request->input('align'),
-            "writing" => $request->input('writing')
+            "writing" => $request->input('writing'),
+            "recipient_name"=>$request->input("recipientname")
 
         ];
         $data = $cardly->PreviewCard($previewdata);
@@ -58,16 +60,32 @@ class ViewHandlerController extends Controller
         //    if($csvdata){
         //        unlink(public_path($path."/".$savefile));
         //    }
-           return response()->json([
-               "length"=>count($csvdata),
-               "filename"=>$savefile
-           ]);
+           if($csvdata){
+            return response()->json([
+                "length"=>count($csvdata),
+                "filename"=>$savefile
+            ]);
+           }
+           else{
+               return response()->json(
+                   [
+                       "error"=>"format"
+                   ]
+                   );
+           }
             
     }
     public function readcsv($path,$savefile){
         $recipientdata=[];
+        $error=false;
         if(($open=fopen(public_path()."/".$path."/".$savefile,"r"))!==FALSE){
+            $first_row=fgetcsv($open,1000,",");
+            if($first_row[0]!=="First_Name"){
+                $error=true;
+            }
+            \Log::debug([$first_row[0]]);
             while(($data=fgetcsv($open,1000,","))!==FALSE){
+              
                 $recipientdata[]=[
                     "firstName"=>$data[0],
                     "lastName"=>$data[1],
@@ -84,6 +102,14 @@ class ViewHandlerController extends Controller
             fclose($open);
         }
        
+        if($error){
+            return false;
+        }
         return($recipientdata);
     }
+    // public function testjob(Request $request){
+    //     $job = (new SendCardJob())->delay(Carbon::now()->addMinutes(2));
+ 
+    //     dispatch($job);
+    // }
 }
