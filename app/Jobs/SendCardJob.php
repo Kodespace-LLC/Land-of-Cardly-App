@@ -20,9 +20,12 @@ class SendCardJob implements ShouldQueue
      * @return void
      */
   
-    public function __construct($artwork_id, $template, $recipient, $quantity, $cardcustomdata,$bulk=false)
+    public function __construct($artwork_id, $template, $recipient, $quantity, $cardcustomdata,$bulk=[])
     {
         $this->bulk=$bulk;
+        if( sizeof($bulk) < 1 )  {
+            $this->bulk = false;
+        }
         $this->artwork_id=$artwork_id;
         $this->template=$template;
         $this->recipient= $recipient;
@@ -40,9 +43,15 @@ class SendCardJob implements ShouldQueue
 
         if($this->bulk){
             $cardcustomdata=$this->cardcustomdata;
+            $card_sent = 0;
+
                 foreach($this->bulk as $index=>$recp){
+                    if( $card_sent >= $this->quantity) {
+                        break;
+                    }
                    $cardcustomdata["Recipient_Name"]=$recp["firstName"];
                     $cardly->SendCard($this->artwork_id, $this->template, $recp, $this->quantity, $this->cardcustomdata);
+                    $card_sent++;
                 }
         }
         else{
