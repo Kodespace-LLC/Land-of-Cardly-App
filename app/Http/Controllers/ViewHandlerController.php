@@ -36,6 +36,11 @@ class ViewHandlerController extends Controller
             
 
         ];
+        \Log::debug([$previewdata]);
+
+        if( $request->has('recipient_name')) {
+            $previewdata["recipient_name"] = $request->input("recipientname");
+        }
         $data = $cardly->PreviewCard($previewdata);
         \Log::debug($data);
         $filename = time() . "_" .'previewcard.pdf';
