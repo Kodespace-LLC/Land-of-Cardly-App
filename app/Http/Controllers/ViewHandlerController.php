@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Carbon\Carbon;
 use App\Jobs\SendCardJob;
 use App\Adapter\Cardly;
 use Illuminate\Http\Request;
+
 
 class ViewHandlerController extends Controller
 {
@@ -30,11 +30,31 @@ class ViewHandlerController extends Controller
             "size" => $request->input('size'),
             "align" => $request->input('align'),
             "writing" => $request->input('writing'),
-            "recipient_name" => $request->input("recipientname")
+            "artwork_id"=>$request->input('artwork_id'),
+            "template_id"=>$request->input('template_id'),
+            "greetingmessage"=>$request->input('greetingmessage')
+            
 
         ];
         $data = $cardly->PreviewCard($previewdata);
-        return response()->json($data);
+        \Log::debug($data);
+        $filename = time() . "_" .'previewcard.pdf';
+        $tempImage = tempnam(sys_get_temp_dir(), $filename);
+        \Log::debug([$tempImage]);
+        copy($data['data']['preview']['urls']['card'], public_path($filename));
+        return response()->json([
+            "file"=>$filename
+        ]);
+    }
+    public function downloadpreview(Request $request){
+            $download=$request->input("file");
+          
+            \Log::debug([public_path($download)]);
+            // return new Response($output, 200, [
+            //     'Content-Type' => 'application/pdf',
+            //     'Content-Disposition' =>  'inline; filename="' . $download . '"',
+            // ]);
+            return response()->file(public_path($download));
     }
     public function getfont(Cardly $cardly)
     {
@@ -74,11 +94,12 @@ class ViewHandlerController extends Controller
             );
         }
     }
+    // "/home/aakashahmed/cards.landofisraelart.com/public/"
     public function readcsv($path, $savefile)
     {
         $recipientdata = [];
         $error = false;
-        if (($open = fopen("/home/aakashahmed/cards.landofisraelart.com/public/" . $savefile, "r")) !== FALSE) {
+        if (($open = fopen(public_path() . "\uploads\\" . $savefile, "r")) !== FALSE) {
             $first_row = fgetcsv($open, 1000, ",");
             if ($first_row[0] !== "First_Name") {
                 $error = true;
@@ -105,6 +126,7 @@ class ViewHandlerController extends Controller
         }
         return ($recipientdata);
     }
+
     // public function testjob(Request $request){
     //     $job = (new SendCardJob())->delay(Carbon::now()->addMinutes(2));
 

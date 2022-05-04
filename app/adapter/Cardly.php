@@ -41,8 +41,8 @@ public function SendCard($artwork_id,$template,$recipient,$quantity,$cardcustomd
 }
 public function PreviewCard ($data){
     $line_items=[
-        "artwork"=>"e12c32ee-7460-f3b5-d54f-395556d21a18",
-        "template"=>"test-template-for-aakash",
+        "artwork"=>$data["artwork_id"],
+        "template"=>$data["template_id"],
         "recipient"=>[
             
             "firstName" =>  "Aakash",
@@ -67,7 +67,9 @@ public function PreviewCard ($data){
         "variables"=>[
             "message"=>$data["message"],
             "leftPageText"=>$data["leftmessage"],
-            "recipient_name"=>$data["recipient_name"] ? $data["recipient_name"]:"Recipient Name"
+            "greeting"=>$data["greetingmessage"],
+            "recipientname"=>"aakash"
+            
             
         ]
 
