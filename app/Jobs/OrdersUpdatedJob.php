@@ -281,6 +281,9 @@ class OrdersUpdatedJob implements ShouldQueue
             \Log::debug("schedule date", [$scheduledate]);
             // \Log::debug($cardcustomdata);
             if ($bulkaddress) {
+                if($property->name=="greetingtext"){
+                    $cardcustomdata["greetingtext"]=$property->value;
+                }
                 function readcsv($path, $savefile)
                 {
                     $recipientdata = [];
