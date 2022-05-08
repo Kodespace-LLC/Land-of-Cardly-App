@@ -46,7 +46,7 @@ class ViewHandlerController extends Controller
         $filename = time() . "_" .'previewcard.pdf';
         $tempImage = tempnam(sys_get_temp_dir(), $filename);
         \Log::debug([$tempImage]);
-        copy($data['data']['preview']['urls']['card'], public_path($filename));
+        copy($data['data']['preview']['urls']['card'], public_path() . $filename );
         return response()->json([
             "file"=>$filename
         ]);
