@@ -232,6 +232,9 @@ class OrdersUpdatedJob implements ShouldQueue
         foreach ($order_data->line_items as $line_item) {
             $cardcustomdata = [];
             foreach ($line_item->properties as $property) {
+                if($property->name=="greetingtext"){
+                    $cardcustomdata["greetingtext"]=$property->value;
+                }
                 if ($property->name == "message") {
                     $cardcustomdata["message"] = $property->value;
                 }
@@ -281,13 +284,11 @@ class OrdersUpdatedJob implements ShouldQueue
             \Log::debug("schedule date", [$scheduledate]);
             // \Log::debug($cardcustomdata);
             if ($bulkaddress) {
-                if($property->name=="greetingtext"){
-                    $cardcustomdata["greetingtext"]=$property->value;
-                }
+                
                 function readcsv($path, $savefile)
                 {
                     $recipientdata = [];
-                    if (($open = fopen(public_path() . "/" . $path . "/" . $savefile, "r")) !== FALSE) {
+                    if (($open = fopen("/home/aakashahmed/cards.landofisraelart.com/public" . "/" . $path . "/" . $savefile, "r")) !== FALSE) {
                         while (($data = fgetcsv($open, 1000, ",")) !== FALSE) {
                             $recipientdata[] = [
                                 "firstName" => $data[0],
