@@ -229,12 +229,11 @@ class OrdersUpdatedJob implements ShouldQueue
         // \Log::debug($bulkaddress);
         // \Log::debug("Processing order", [$this->data]);
         // \Log::debug("Line items in the order", $order_data->line_items);
+        \Log::debug([$line_item->properties]);
         foreach ($order_data->line_items as $line_item) {
             $cardcustomdata = [];
             foreach ($line_item->properties as $property) {
-                if($property->name=="greetingtext"){
-                    $cardcustomdata["greetingtext"]=$property->value;
-                }
+               
                 if ($property->name == "message") {
                     $cardcustomdata["message"] = $property->value;
                 }
@@ -279,12 +278,14 @@ class OrdersUpdatedJob implements ShouldQueue
                 if ($property->name == "schedule for") {
                     $scheduledate = $property->value;
                 }
+                if($property->name=="greetingtext"){
+                    $cardcustomdata["greetingtext"]=$property->value;
+                }
             }
             $path = "uploads";
             \Log::debug("schedule date", [$scheduledate]);
             // \Log::debug($cardcustomdata);
             if ($bulkaddress) {
-                
                 function readcsv($path, $savefile)
                 {
                     $recipientdata = [];

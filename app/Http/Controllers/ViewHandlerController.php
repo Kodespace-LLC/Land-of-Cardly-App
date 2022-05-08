@@ -59,7 +59,7 @@ class ViewHandlerController extends Controller
             //     'Content-Type' => 'application/pdf',
             //     'Content-Disposition' =>  'inline; filename="' . $download . '"',
             // ]);
-            return response()->file("/home/aakashahmed/cards.landofisraelart.com/public/".($download));
+            return response()->file("/home/aakashahmed/cards.landofisraelart.com/public/uploads/".($download));
     }
     public function getfont(Cardly $cardly)
     {
