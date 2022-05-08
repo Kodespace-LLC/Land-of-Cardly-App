@@ -46,7 +46,7 @@ class ViewHandlerController extends Controller
         $filename = time() . "_" .'previewcard.pdf';
         $tempImage = tempnam(sys_get_temp_dir(), $filename);
         \Log::debug([$tempImage]);
-        copy($data['data']['preview']['urls']['card'], public_path() . $filename );
+        copy($data['data']['preview']['urls']['card'], "/home/aakashahmed/cards.landofisraelart.com/public/uploads/" . ($filename));
         return response()->json([
             "file"=>$filename
         ]);
@@ -59,7 +59,7 @@ class ViewHandlerController extends Controller
             //     'Content-Type' => 'application/pdf',
             //     'Content-Disposition' =>  'inline; filename="' . $download . '"',
             // ]);
-            return response()->file("/home/aakashahmed/cards.landofisraelart.com/public/".($download));
+            return response()->file("/home/aakashahmed/cards.landofisraelart.com/public/uploads/".($download));
     }
     public function getfont(Cardly $cardly)
     {
