@@ -22,3 +22,8 @@ Route::get("csvfile", [ViewHandlerController::class, "readcsv"]);
 Route::post('uploadcsv',[ViewHandlerController::class,"csvfile"])->middleware(['allowcors'])->name('uploadcsv');
 Route::get('/testjob',[ViewHandlerController::class,"testjob"]);
 Route::get('get/file',[ViewHandlerController::class,"downloadpreview"]);
+
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
