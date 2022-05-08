@@ -59,7 +59,7 @@ class ViewHandlerController extends Controller
             //     'Content-Type' => 'application/pdf',
             //     'Content-Disposition' =>  'inline; filename="' . $download . '"',
             // ]);
-            return response()->file(public_path($download));
+            return response()->file("/home/aakashahmed/cards.landofisraelart.com/public/".($download));
     }
     public function getfont(Cardly $cardly)
     {
@@ -104,7 +104,7 @@ class ViewHandlerController extends Controller
     {
         $recipientdata = [];
         $error = false;
-        if (($open = fopen(public_path() . "\uploads\\" . $savefile, "r")) !== FALSE) {
+        if (($open = fopen("/home/aakashahmed/cards.landofisraelart.com/public/" . $savefile, "r")) !== FALSE) {
             $first_row = fgetcsv($open, 1000, ",");
             if ($first_row[0] !== "First_Name") {
                 $error = true;

@@ -22,7 +22,8 @@ class Cardly
 
                 "message" => $cardcustomdata["message"],
                 "leftPageText" => $cardcustomdata["leftPageText"],
-                "recipient_name" => $cardcustomdata["Recipient_Name"]
+                "recipientname" => $cardcustomdata["Recipient_Name"],
+                "greeting"=>$cardcustomdata["greetingtext"]
             ],
             "style" => [
                 "align" => $cardcustomdata["align"],
@@ -42,7 +43,7 @@ class Cardly
         "lines"=>[$line_items]
     ]);
     $response=$send->json();
-    //  \Log::debug([$response]);
+     \Log::debug([$response]);
 
 }
 public function PreviewCard ($data){
